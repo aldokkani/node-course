@@ -14,5 +14,3 @@ app.use('/users', usersRouter);
 app.listen(8000, () => {
   console.log('server is running');
 });
-
-// https://github.com/aldokkani/node-course
