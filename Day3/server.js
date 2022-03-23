@@ -1,16 +1,21 @@
-const express = require('express');
-const morgan = require('morgan');
+const mongoose = require('mongoose');
+const dotenv = require('dotenv');
 
-const toursRouter = require('./routes/tours');
-const usersRouter = require('./routes/users');
+dotenv.config();
+const app = require('./app');
 
-const app = express();
-app.use(express.json());
-app.use(morgan('dev'));
+const { HOST, DB_URL } = process.env;
+const PORT = process.env.abas;
 
-app.use('/tours', toursRouter);
-app.use('/users', usersRouter);
+mongoose
+  .connect(DB_URL)
+  .then(() => {
+    console.log('DB connected');
+  })
+  .catch((err) => {
+    console.error('connection failed =>', err);
+  });
 
-app.listen(8000, () => {
+app.listen(PORT, HOST, () => {
   console.log('server is running');
 });
